@@ -1,25 +1,61 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import AppCard from './components/AppCard';
 
 function App() {
+  // const h1 = React.createElement(
+  //   "h1",
+  //   {},
+  //   "Ciao React!"
+  // )
+  // const p = React.createElement(
+  //   "p",
+  //   {},
+  //   "Ciao papà div"
+  // )
+  // const div = React.createElement(
+  //   "div",
+  //   {},
+  //   [h1, p]
+  // );
+  //   return div;
+
+  const users =[
+    {
+      title: "titolo1",
+      message: 'messaggio1'
+    },
+    {
+      title: "titolo2",
+      message: 'messaggio2'
+    },
+    {
+      title: "titolo1",
+      message: 'messaggio3'
+    },
+
+  ]
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='section'>
+      <div className='columns'>
+        <div className='column is-2'>
+          {
+            users.map(user => 
+            <AppCard title={user.title} message={user.message}>
+            </AppCard>)
+          }
+        </div>
+        {/* <div className='column is-2'>
+          <AppCard></AppCard>
+        </div>
+        <div className='column is-2'>
+          <AppCard></AppCard>
+        </div> */}
+        
+      </div>
     </div>
   );
-}
+};
 
 export default App;
