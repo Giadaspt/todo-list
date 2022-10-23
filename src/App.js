@@ -1,58 +1,32 @@
 import React from 'react';
 import './App.css';
-import AppCard from './components/AppCard';
+import Timetable from './components/Timetable';
 
 function App() {
-  // const h1 = React.createElement(
-  //   "h1",
-  //   {},
-  //   "Ciao React!"
-  // )
-  // const p = React.createElement(
-  //   "p",
-  //   {},
-  //   "Ciao papà div"
-  // )
-  // const div = React.createElement(
-  //   "div",
-  //   {},
-  //   [h1, p]
-  // );
-  //   return div;
-
-  const users =[
+  const timetables = [
     {
-      title: "titolo1",
-      message: 'messaggio1'
+      city: "Roma",
+      offset: 1
     },
     {
-      title: "titolo2",
-      message: 'messaggio2'
+      city: "Mosca",
+      offset: 3
     },
     {
-      title: "titolo1",
-      message: 'messaggio3'
-    },
-
-  ]
+      city: "Los Angeles",
+      offset: -8
+    }
+  ];
 
   return (
-    <div className='section'>
-      <div className='columns'>
-        <div className='column is-2'>
+    <div className='container is-fluid'>
+      <div className='section'>
+        <div className='column'>
           {
-            users.map(user => 
-            <AppCard title={user.title} message={user.message}>
-            </AppCard>)
+            timetables.map( (timetable, index) => <Timetable city={timetable.city}  offset={timetable.offset} key={index}></Timetable>)
           }
+         
         </div>
-        {/* <div className='column is-2'>
-          <AppCard></AppCard>
-        </div>
-        <div className='column is-2'>
-          <AppCard></AppCard>
-        </div> */}
-        
       </div>
     </div>
   );
