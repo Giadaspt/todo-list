@@ -8,17 +8,28 @@ class Timetable extends React.Component {
       offset: props.offset
     };
 
+    
+  };
+
+  componentDidMount(){
+    console.log('didmount');
     this.timer = setInterval(() => {
       this.tick(this.props.offset)
     }, 1000);
   };
 
+  componentWillUnmount(){
+    console.log('willunmount');
+    clearInterval(this.timer)
+  }
+
+
   tick(offset){
     const d = new Date(); 
     const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    console.log(utc);
+    // console.log(utc);
     const dateNew = new Date( utc + (3600000 * offset));
-    console.log(dateNew);
+    // console.log(dateNew);
 
     this.setState({
       data: dateNew
