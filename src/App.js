@@ -4,6 +4,8 @@ import Timetable from './components/Timetable';
 import AddTimetable from './components/AddTimetable';
 import Navbar from './components/Navbar';
 import Modal from './components/Modal';
+import UserList from './components/UserList';
+import PostList from './components/PostList'
 
 const ThemeContext = React.createContext('dark');
 
@@ -75,12 +77,9 @@ class App extends React.Component {
 
   render(){
     return (
-      <div>
+      <>
         <ThemeContext.Provider value={this.state.theme}>
           <Navbar />
-          <button className='button is-warning ml-4' onClick={this.toggleModal}> 
-            Apri modale 
-          </button>
           <Modal  toggleModal={this.toggleModal} show={ this.state.showModal}/>
           <div className='container is-fluid'>
             <div className='section'>
@@ -105,9 +104,24 @@ class App extends React.Component {
               handleSubmit={this.handleSubmit} 
               />
             </div>
+            <div className='columns'>
+              <div className='column is-2'>
+                <UserList />
+              </div>
+              <div className='column is-4'>
+                <PostList />
+              </div>
+            </div>
           </div>
         </ThemeContext.Provider>
-      </div>
+        <div className='columns'>
+          <div className='column is-12'>
+            <button className='button is-warning ml-4 mt-5' onClick={this.toggleModal}> 
+              Apri modale 
+            </button>
+          </div>
+        </div>
+      </>
     );
   }
 };

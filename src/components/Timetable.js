@@ -49,7 +49,6 @@ class Timetable extends React.Component {
             <p>L'orario di { this.props.city } ({this.props.offset}) è {this.state.data.toLocaleTimeString()}</p>
           </div>
         </div>
-        <button className="button is-primary"> Aggiungi </button>
       </>
       // </React.Fragment>
     )
