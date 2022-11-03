@@ -2,15 +2,16 @@ import React from 'react';
 import './App.css';
 import Timetable from './components/Timetable';
 import AddTimetable from './components/AddTimetable';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import Modal from './components/Modal';
-import UserList from './components/UserList';
-import PostList from './components/PostList';
-import HOCList from './components/HOCList';
+import UserInput from './components/UserInput';
+// import UserList from './components/UserList';
+// import PostList from './components/PostList';
+// import HOCList from './components/HOCList';
 
 const ThemeContext = React.createContext('dark');
-const Users = HOCList(UserList, 'http://jsonplaceholder.typicode.com/users');
-const Posts = HOCList(PostList, 'http://jsonplaceholder.typicode.com/posts?_start=0&_limit=10');
+// const Users = HOCList(UserList, 'http://jsonplaceholder.typicode.com/users');
+// const Posts = HOCList(PostList, 'http://jsonplaceholder.typicode.com/posts?_start=0&_limit=10');
 
 class App extends React.Component {
   constructor(props){
@@ -52,15 +53,7 @@ class App extends React.Component {
       newTimetable: timeTable,
     });
   };
-  // handleChangeOffset(e){
-  //   console.log('event', e.target.value);
-  //   const timeTable = {...this.state.newTimetable};
-  //   console.log(timeTable, 'timetable');
-  //   timeTable.offset = e.target.value;
-  //   this.setState ({
-  //     newTimetable: timeTable,
-  //   });
-  // };
+ 
   handleSubmit(event){
     // aggiornare timetables
     event.preventDefault();
@@ -82,18 +75,17 @@ class App extends React.Component {
     return (
       <>
         <ThemeContext.Provider value={this.state.theme}>
-          <Navbar />
+          {/* <Navbar /> */}
           <Modal  toggleModal={this.toggleModal} show={ this.state.showModal}/>
           <div className='container is-fluid'>
             <div className='section'>
               <div className='columns is-multiline'>
                 {
                   this.state.timetables.map( (timetable, index) => 
-                  <div className='column is-4'>
+                  <div className='column is-4' key={index} >
                     <Timetable 
                     city={timetable.city}  
                     offset={timetable.offset} 
-                    key={index} 
                     />
                   </div>
                   )
@@ -106,15 +98,19 @@ class App extends React.Component {
               handleChange={this.handleChange} 
               handleSubmit={this.handleSubmit} 
               />
+
+              <div className='mt-5'>
+                <UserInput/>  
+              </div>
             </div>
-            <div className='columns'>
+            {/* <div className='columns'>
               <div className='column is-2'>
                 <Users/>
               </div>
               <div className='column is-4'>
                 <Posts />
               </div>
-            </div>
+            </div> */}
           </div>
         </ThemeContext.Provider>
         <div className='columns'>
