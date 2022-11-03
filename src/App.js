@@ -1,11 +1,17 @@
 import React from 'react';
 import './App.css';
 import Timetable from './components/Timetable';
+import AddTimetable from './components/AddTimetable';
+import Navbar from './components/Navbar';
+import Modal from './components/Modal';
+
+const ThemeContext = React.createContext('dark');
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      theme: 'dark',
       timetables: [
         {
           city: "Roma",
@@ -20,38 +26,87 @@ class App extends React.Component {
           offset: -10
         }
       ],
-      render: true,
-    }
-    this.handleClick = this.handleClick.bind(this)
+
+      newTimetable: {
+        city: '',
+        offset: 0
+      }, 
+      showModal: false,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit =  this.handleSubmit.bind(this);
+    this.toggleModal =  this.toggleModal.bind(this);
   };
 
-  handleClick(){
-    console.log(this);
+  handleChange(e, prop){
+    console.log('event', e.target.value);
+    const timeTable = {...this.state.newTimetable};
+    console.log(timeTable, 'timetable');
+    timeTable[prop] = e.target.value;
+    this.setState ({
+      newTimetable: timeTable,
+    });
+  };
+  // handleChangeOffset(e){
+  //   console.log('event', e.target.value);
+  //   const timeTable = {...this.state.newTimetable};
+  //   console.log(timeTable, 'timetable');
+  //   timeTable.offset = e.target.value;
+  //   this.setState ({
+  //     newTimetable: timeTable,
+  //   });
+  // };
+  handleSubmit(event){
+    // aggiornare timetables
+    event.preventDefault();
+    console.log('handleSubmit');
+    this.setState((state, props) => {
+      return {
+        timetables: [...state.timetables, state.newTimetable]
+      }
+    })
+  };
+
+  toggleModal(){
     this.setState({
-      render: false
+      showModal: !this.state.showModal
     })
   }
 
   render(){
     return (
-      <div className='container is-fluid'>
-        <div className='section'>
-          <div className='column'>
-            {
-              // se il valore di rendere è true allora facciamo la reinderizzarione altriment ne facciamo un'altra. Quindi il seguente  codide deve essere reindirizzato solamente se render è true
-              this.state.render && this.state.timetables.map( (timetable, index) => <Timetable city={timetable.city}  offset={timetable.offset} key={index}></Timetable>)
-            }
-           
+      <div>
+        <ThemeContext.Provider value={this.state.theme}>
+          <Navbar />
+          <button className='button is-warning ml-4' onClick={this.toggleModal}> 
+            Apri modale 
+          </button>
+          <Modal  toggleModal={this.toggleModal} show={ this.state.showModal}/>
+          <div className='container is-fluid'>
+            <div className='section'>
+              <div className='columns is-multiline'>
+                {
+                  this.state.timetables.map( (timetable, index) => 
+                  <div className='column is-4'>
+                    <Timetable 
+                    city={timetable.city}  
+                    offset={timetable.offset} 
+                    key={index} 
+                    />
+                  </div>
+                  )
+                }
+              
+              </div>
+              <AddTimetable 
+              city={this.state.newTimetable.city}
+              offeset={this.state.newTimetable.cityoffeset}
+              handleChange={this.handleChange} 
+              handleSubmit={this.handleSubmit} 
+              />
+            </div>
           </div>
-        </div>
-        <button className='button is-primary' onClick={(e) => this.handleClick(e)}>
-          Elimina componenti
-        </button>
-        {/* 
-        uso questo al posto di this.handleClick = this.handleClick.bind(this)
-        il risulato è uguale identico
-        <button onClick={(e) => this.handleClick(e)}>Elimina componenti</button> 
-        */}
+        </ThemeContext.Provider>
       </div>
     );
   }

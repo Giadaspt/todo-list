@@ -39,14 +39,19 @@ class Timetable extends React.Component {
 
   render(){
     return (
-      <div className='card'>
-      <div className='card-header'> 
-        <h1 className="card-header-title subtitle"> { this.props.city }</h1>
-      </div>
-      <div className='card-content'>
-        <p>L'orario di { this.props.city } ({this.props.offset}) è {this.state.data.toLocaleTimeString()}</p>
-      </div>
-    </div>
+      // <React.Fragment> per fare il fragment oppure come sotto sintassi short con niente dentro
+      <>
+        <div className='card'>
+          <div className='card-header'> 
+            <h1 className="card-header-title subtitle"> { this.props.city }</h1>
+          </div>
+          <div className='card-content'>
+            <p>L'orario di { this.props.city } ({this.props.offset}) è {this.state.data.toLocaleTimeString()}</p>
+          </div>
+        </div>
+        <button className="button is-primary"> Aggiungi </button>
+      </>
+      // </React.Fragment>
     )
   }
 }
