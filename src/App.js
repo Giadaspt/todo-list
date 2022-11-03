@@ -5,9 +5,12 @@ import AddTimetable from './components/AddTimetable';
 import Navbar from './components/Navbar';
 import Modal from './components/Modal';
 import UserList from './components/UserList';
-import PostList from './components/PostList'
+import PostList from './components/PostList';
+import HOCList from './components/HOCList';
 
 const ThemeContext = React.createContext('dark');
+const Users = HOCList(UserList, 'http://jsonplaceholder.typicode.com/users');
+const Posts = HOCList(PostList, 'http://jsonplaceholder.typicode.com/posts?_start=0&_limit=10');
 
 class App extends React.Component {
   constructor(props){
@@ -106,10 +109,10 @@ class App extends React.Component {
             </div>
             <div className='columns'>
               <div className='column is-2'>
-                <UserList />
+                <Users/>
               </div>
               <div className='column is-4'>
-                <PostList />
+                <Posts />
               </div>
             </div>
           </div>
